@@ -3,11 +3,12 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions
 
 import ztoken
+import config
 
 
-bot = commands.Bot(command_prefix = "$")
+bot = commands.Bot(command_prefix = config.prefix)
 bot.remove_command('help')
-extensions = [] 
+extensions = ["cogs.admin"] 
 
 @bot.event
 async def on_ready():
