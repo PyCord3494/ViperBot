@@ -8,7 +8,7 @@ import config
 
 bot = commands.Bot(command_prefix = config.prefix)
 bot.remove_command('help')
-extensions = ["cogs.admin", "utils.errHandle"] 
+extensions = ["cogs.admin", "cogs.tempCmds", "utils.errHandle", "utils.other"] 
 
 @bot.event
 async def on_ready():
@@ -37,6 +37,12 @@ async def on_guild_join(guild):
 	for channel in guild.text_channels:
 		await channel.set_permissions(mute_role, overwrite=overwrite)
 
+@bot.event
+async def on_guild_channel_create(channel):
+	mute_role = discord.utils.get(channel.guild.roles, name = "Muted")
+	overwrite = discord.PermissionOverwrite()
+	overwrite.send_messages = False
+	await channel.set_permissions(mute_role, overwrite=overwrite)
 
 
 
