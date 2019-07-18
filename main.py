@@ -21,6 +21,17 @@ async def help(ctx):
 	await ctx.send("Insert Help Menu Here")
 
 
+# manually reload a cog
+@bot.command(hidden = True)
+@has_permissions(administrator=True)
+async def reload(ctx, extension):
+	try:
+		bot.reload_extension(extension)
+		print(f"Reloaded {extension}.\n")
+	except Exception as error:
+		print(f"{extension} could not be reloaded. [{error}]")
+
+
 if __name__ == '__main__':
 	for extension in extensions:
 		try:
