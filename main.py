@@ -8,13 +8,36 @@ import config
 
 bot = commands.Bot(command_prefix = config.prefix)
 bot.remove_command('help')
-extensions = ["cogs.admin"] 
+extensions = ["cogs.admin", "utils.errHandle"] 
 
 @bot.event
 async def on_ready():
 	print(f"{bot.user.name} - {bot.user.id}")
 	print(discord.__version__)
 	print("Ready...")
+
+@bot.event
+async def on_guild_join(guild):
+	print(f"Connected to guild: {guild.name}!")
+
+	mute_role = discord.utils.get(guild.roles, name = "Muted")
+
+	# creates role if not exist
+	if not mute_role:
+		mute_role = await guild.create_role(name="Muted")
+
+	# moves it to bottom of the roles
+	await mute_role.edit(position=1)
+
+	# defines Muted role's permissions
+	overwrite = discord.PermissionOverwrite()
+	overwrite.send_messages = False
+
+	# adds permissions for Muted to every channel
+	for channel in guild.text_channels:
+		await channel.set_permissions(mute_role, overwrite=overwrite)
+
+
 
 
 @bot.command(pass_context=True)
