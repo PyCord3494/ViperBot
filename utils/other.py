@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import has_permissions
 import time
+import asyncio
 
 import config
 
@@ -24,7 +25,9 @@ class Other(commands.Cog):
 
 	@commands.command(pass_context=True)
 	async def getid(self, ctx, member: discord.Member):
-		await ctx.send(f"ID of user: {member.id}")
+		msg = await ctx.send(f"ID of user: {member.id}")
+		await asyncio.sleep(5)
+		await msg.delete()
 
 
 	@commands.command(pass_context=True)
