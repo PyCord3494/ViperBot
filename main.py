@@ -7,7 +7,7 @@ import config
 
 
 bot = commands.Bot(command_prefix = config.prefix)
-bot.remove_command('help')
+#bot.remove_command('help')
 extensions = ["cogs.admin", "cogs.tempCmds", "utils.errHandle", "utils.other"] 
 
 @bot.event
@@ -46,9 +46,9 @@ async def on_guild_channel_create(channel):
 
 
 
-@bot.command(pass_context=True)
-async def help(ctx):
-	await ctx.send("Insert Help Menu Here")
+#@bot.command(pass_context=True)
+#async def help(ctx):
+#	await ctx.send("Insert Help Menu Here")
 
 
 # manually reload a cog
