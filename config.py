@@ -1,1 +1,1 @@
-PREFIX BLABLABLA
+prefix = "$"
